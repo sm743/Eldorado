@@ -17,19 +17,38 @@ public class NineMenMorrisBoard {
         blackPieces = 9;           // Each player starts with 9 pieces
         whitePieces = 9;
     }
+    
+    
+    public void placePiece(int row,int col) {
+        if (isValidMove(row, col)) {
+             getBoardState()[row][col] = getCurrentPlayer();
+             
+            // Decrease the count of remaining pieces for the current player
+            if (getCurrentPlayer() == 1) {
+               setBlackPieces(getBlackPieces() - 1);
+               // player1PiecesLabel.setText("No. of pieces left"+board.getBlackPieces());
+                
+            } else {
+               setWhitePieces(getWhitePieces() - 1);
+               // player2PiecesLabel.setText("No. of pieces left"+board.getWhitePieces());
+
+            }
+            // Toggle players
+            setCurrentPlayer((getCurrentPlayer() == 1) ? 2 : 1);
+
+   
+        }
+    }
 
     public boolean isValidMove(int row, int col) {
         // Implement your logic to check if the move is valid
         // You need to consider the game rules for Nine Men's Morris here
         // Return true if the move is valid, otherwise return false
         // You also need to check if a player has won the game
-    	System.out.println((boardState[row][col] == 0) && (blackPieces > 0 || whitePieces > 0));
     	
     	if ((isCorner(row, col) || isEdge(row, col) || isCenter(row, col)) && (boardState[row][col] == 0) && (blackPieces > 0 || whitePieces > 0)) {
     	        // Implement other game rules here
-    		System.out.println("cornere"+isCorner(row, col) );
-    		System.out.println("edge"+isEdge(row, col) );
-    		System.out.println("centre"+isCenter(row, col));
+
     	        return true; // Valid move
     	    }
         return false;
@@ -41,13 +60,10 @@ public class NineMenMorrisBoard {
         // You need to consider the game rules for Nine Men's Morris here
         // Return true if the move is valid, otherwise return false
         // You also need to check if a player has won the game
-    	System.out.println((boardState[row][col] == 0) && (blackPieces > 0 || whitePieces > 0));
     	
     	if ((isCorner(row, col) || isEdge(row, col) || isCenter(row, col)) ) {
     	        // Implement other game rules here
-    		System.out.println("cornere"+isCorner(row, col) );
-    		System.out.println("edge"+isEdge(row, col) );
-    		System.out.println("centre"+isCenter(row, col));
+ 
     	        return true; // Valid move
     	    }
         return false;
@@ -95,7 +111,7 @@ public class NineMenMorrisBoard {
         // Check if the intersection is a corner based on the number of rows and columns
         // Corners are at the first and last row and column
         //return( (row == 0 && col == 0) || (row == 0 && col == 7 - 1) || (row == 7 - 1 && col == 0) || (row == 7 - 1 && col == 7 - 1));
-        return (row == 0 && col == 0) || (row == 0 && col == 6) || (row == 0 && col == 6) || (row == 6 && col == 0);
+        return (row == 0 && col == 0) || (row == 0 && col == 6) || (row == 6 && col == 0) || (row == 6 && col == 6);
 
     }
 
